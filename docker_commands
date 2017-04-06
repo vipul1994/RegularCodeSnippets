@@ -1,0 +1,19 @@
+docker ps to see if you have any running containers
+docker ps shows only currently running containers.
+
+docker ps -a to show all containers on the system
+
+Dockerfile:
+FROM docker/whalesay:latest
+RUN apt-get -y update && apt-get install -y fortunes
+CMD /usr/games/fortune -a | cowsay
+
+
+docker build -t docker-whale .
+Run your new image by typing docker run docker-whale
+
+docker rmi -f 7d9495d03763
+
+When you use docker run it automatically downloads (pulls) images that don’t yet exist locally, creates a container, and starts it.
+
+
