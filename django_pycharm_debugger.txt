@@ -1,0 +1,18 @@
+for running pycharm debugger on your apps..
+add these statements in the entry point file
+
+import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'dsn.settings'
+application = get_wsgi_application()
+
+from xo_insight import helper
+from core import importer
+
+helper_obj = helper.XOHelper()
+importer_obj = importer.Importer()
+importer_obj.execute(helper_obj)
+
+
+replace xo lines with your app name
