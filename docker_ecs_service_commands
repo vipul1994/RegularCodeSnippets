@@ -1,0 +1,13 @@
+docker build -t registry2.swarm.devfactory.com/codenation/good_bad_code_full:v1 .
+
+docker run -d --name django-celery_v15 -p 8085:8000 registry2.swarm.devfactory.com/codenation/good_bad_code_full:v1
+
+docker logs -f cdb96b63de4c044c7850730918f3813c93dff9b03a4a2f6ab69f58643f3f8411
+
+docker exec -it cdb96b63de4c044c7850730918f3813c93dff9b03a4a2f6ab69f58643f3f8411 /bin/bash
+
+docker -H tcp://build.swarm.devfactory.com:2375 build -t registry2.swarm.devfactory.com/language_modeling:dev .
+
+docker -H tcp://build.swarm.devfactory.com:2375 push registry2.swarm.devfactory.com/language_modeling:dev
+
+docker -H tcp://webserver.devfactory.com:2375 service create --name good_bad_code --publish=5005:8000 --limit-cpu 4 --limit-memory 32GB --restart-condition any registry2.swarm.devfactory.com/language_modeling:dev
